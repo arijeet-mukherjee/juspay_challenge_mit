@@ -5,7 +5,11 @@ Inspired from MIT Scratch
 Deployed at (Desktop Only): https://juspay-challenge-mit-arijeet-mukherjee.netlify.app/
 
 
+![ss0](https://user-images.githubusercontent.com/39984190/191718742-08712d8d-604f-4d98-9e2c-e0d47688ab34.png)
 
+![ss1](https://user-images.githubusercontent.com/39984190/191718743-366427ec-cf83-41b7-beeb-d9cbc621796b.png)
+
+![ss2](https://user-images.githubusercontent.com/39984190/191718733-47136cad-bee6-4973-bc61-f43accae86ea.png)
 
 
 This project covers main features of 4 sections of MIT Scratch
