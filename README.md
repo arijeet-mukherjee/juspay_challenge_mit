@@ -2,7 +2,7 @@
 
 Inspired from MIT Scratch
 
-Deployed at (Desktop Only): https://juspay-challenge-mit-arijeet-mukherjee.netlify.app/
+Deployed at (Desktop Only): https://superb-cranachan-d57b2e.netlify.app/
 
 
 ![ss0](https://user-images.githubusercontent.com/39984190/191718742-08712d8d-604f-4d98-9e2c-e0d47688ab34.png)
