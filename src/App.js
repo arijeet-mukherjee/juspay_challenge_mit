@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
-import { updateList, updateList2 } from "./redux/midarea/actions";
+import { updateList2 } from "./redux/midarea/actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
