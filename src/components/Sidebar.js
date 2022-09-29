@@ -1,5 +1,5 @@
 import React from "react";
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Draggable, Droppable, DragDropContext } from "react-beautiful-dnd";
 import { getComponent } from "./getComponents";
 import {
   motionComponents,
@@ -30,13 +30,14 @@ export default function Sidebar() {
                   key={`${x}-sideArea`}
                   draggableId={`${x}-sideArea`}
                   index={i}
+                  onDragStart={(e)=>{console.log("dropped")}}
                 >
                   {(provided) => (
                     <li
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className = "bg-gray-300 my-2"
+                      className = "bg-gray-300 my-2 dnd-copy"
                     >
                       {getComponent(x)}
                     </li>

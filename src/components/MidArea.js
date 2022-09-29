@@ -46,6 +46,24 @@ const RunButton = withStyles((theme) => ({
   },
 }))(Button);
 
+ const onDragOver = (event) => {
+  // let event = e as Event;
+  event.stopPropagation();
+  event.preventDefault();
+ }
+
+ const onDragEnter = (e) => {
+  // let event = e as Event;
+   //event.stopPropagation();
+ }
+
+ const onFileDrop = (e) => {
+  // let event = e as Event;
+   //event.stopPropagation();
+
+   console.log("onFileDrop");
+   alert("dropped")
+ }
 // Mid Area Component
 function MidArea({ area_list, add_list, event_values }) {
   const classes = useStyles();
@@ -143,7 +161,9 @@ function MidArea({ area_list, add_list, event_values }) {
       <div className="grid grid-flow-col">
         {area_list.midAreaLists.map((l) => {
           return (
-            <div className="w-60" key={l.id}>
+            <div className="w-60" key={l.id}  onDragEnter={onDragEnter}
+        onDragOver={onDragOver}
+        onDrop={files => onFileDrop()}>
               <Paper elevation={3} className="p-4">
                 <div className="w-52 border border-2 border-gray-300 p-2">
                   <Droppable droppableId={l.id} type="COMPONENTS">

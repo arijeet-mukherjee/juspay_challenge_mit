@@ -1,4 +1,4 @@
-import { ADD_LIST, SET_LIST } from "./types";
+import { ADD_LIST, SET_LIST, UPDATE_LIST } from "./types";
 
 const initialState = {
   midAreaLists: [
@@ -31,6 +31,12 @@ export const listReducer = (state = initialState, action) => {
       old_list.push(new_list_add);
       return {
         midAreaLists: old_list,
+      };
+
+    case UPDATE_LIST:
+      let new_list = state.midAreaLists;
+      return {
+        midAreaLists: new_list,
       };
 
     default:

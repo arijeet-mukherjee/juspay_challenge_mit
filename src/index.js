@@ -7,13 +7,16 @@ import "tailwindcss/tailwind.css";
 import { Provider } from "react-redux";
 import store from "./store";
 import { SnackbarProvider } from "notistack";
-
+import { persistor } from './store';
+import { PersistGate } from 'redux-persist/integration/react';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <SnackbarProvider maxSnack={4}>
-        <App />
-      </SnackbarProvider>
+       <PersistGate loading={null} persistor={persistor}>
+        <SnackbarProvider maxSnack={4}>
+          <App />
+        </SnackbarProvider>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

@@ -11,6 +11,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
+import { updateList, updateList2 } from "./redux/midarea/actions";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -27,11 +29,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function App({ complist, update_list }) {
+function App({ complist, updateList2 }) {
   const classes = useStyles();
 
+  //drag start
+  const onDragStart = (e)=>{
+    console.log("hhhhh",e);
+    
+  }
   // Update Lists of Mid Area
   const onDragEnd = (result) => {
+    console.log("found finally")
+    if (result.destination === null){
+      return;
+    }
     let element = result.draggableId.split("-")[0];
 
     const old_list = complist.midAreaLists;
@@ -54,6 +65,10 @@ function App({ complist, update_list }) {
 
       old_list[dest_index].comps = dest_comp_list;
     }
+    for(let i =0; i<old_list.length;i++){
+      updateList2(old_list[i].id, old_list)
+    }
+    
   };
   return (
     <div className="bg-gray-300 font-sans">
@@ -75,7 +90,7 @@ function App({ complist, update_list }) {
         </AppBar>
       </div>
       <div className="h-screen overflow-hidden flex flex-row pt-6">
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
           <div className="flex-1 h-screen overflow-hidden flex flex-row bg-white border-t border-r border-gray-200 rounded-tr-xl mr-2">
             <Sidebar />
 
@@ -96,5 +111,10 @@ const mapStateToProps = (state) => {
     complist: state.list,
   };
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateList2: (id,list) => dispatch(updateList2(id,list)),
+  };
+};
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
