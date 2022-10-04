@@ -8,7 +8,52 @@ import {
   eventsComponents,
 } from "./SidebarConstants";
 
-export default function Sidebar() {
+export default function Sidebar({placeholderProps,id}) {
+
+  const reorderElementAtIndex = (index) => {
+    let parentNode = document.getElementById('ul-motion');
+    if(!parentNode || !index){
+      return;
+    }
+    let liToSwap = document.getElementById('li-motion');
+    //liToSwap.style.display = 'block'
+    let temp = parentNode.children[index+1];
+    parentNode.insertBefore(liToSwap, temp);
+  }
+
+  const reorderLookElementAtIndex = (index) => {
+    let parentNode = document.getElementById('ul-looks');
+    if (!parentNode || !index) {
+      return;
+    }
+    let liToSwap = document.getElementById('li-looks');
+    //liToSwap.style.display = 'block'
+    let temp = parentNode.children[index + 1];
+    parentNode.insertBefore(liToSwap, temp);
+  }
+
+  const reorderControlElementAtIndex = (index) => {
+    let parentNode = document.getElementById('ul-control');
+    if (!parentNode || !index) {
+      return;
+    }
+    let liToSwap = document.getElementById('li-control');
+    //liToSwap.style.display = 'block'
+    let temp = parentNode.children[index + 1];
+    parentNode.insertBefore(liToSwap, temp);
+  }
+
+  const reorderEventElementAtIndex = (index) => {
+    let parentNode = document.getElementById('ul-event');
+    if (!parentNode || !index) {
+      return;
+    }
+    let liToSwap = document.getElementById('li-event');
+    //liToSwap.style.display = 'block'
+    let temp = parentNode.children[index + 1];
+    parentNode.insertBefore(liToSwap, temp);
+  }
+
   return (
     < div className = "w-60 flex-none h-full overflow-y-auto flex flex-col items-start p-2 border-r border-gray-200 bg-gray-200" >
       <div className="font-bold mb-5 text-center border border-2 rounded text-white bg-black p-2 w-auto">
@@ -20,9 +65,10 @@ export default function Sidebar() {
         {(provided) => (
           <ul
             className="sideArea-motion my-3"
+            id = "ul-motion"
             {...provided.droppableProps}
             ref={provided.innerRef}
-          >
+            >
             {motionComponents.map((x, i) => {
               return (
                 <Draggable
@@ -41,11 +87,35 @@ export default function Sidebar() {
                     >
                       {getComponent(x)}
                     </li>
+                    
+                    
                   )}
                 </Draggable>
               );
             })}
-            {provided.placeholder}
+            
+            <li style={{
+              top: placeholderProps.clientY,
+              left: placeholderProps.clientX,
+              height: placeholderProps.clientHeight,
+              background: "#e53935",
+              width: placeholderProps.clientWidth,
+              'borderRadius' : '5px',
+              margin :'0 0 26px 0'
+            }}
+            className = "bg-gray-300 my-2 dnd-copy"
+            id="li-motion"
+            order = {placeholderProps.initialIndex}
+            />
+            {
+              console.log(placeholderProps.initialIndex)
+            }
+            {
+              reorderElementAtIndex(placeholderProps.initialIndex)
+            }
+            {
+              provided.placeholder
+            }
           </ul>
         )}
       </Droppable>
@@ -56,6 +126,7 @@ export default function Sidebar() {
         {(provided) => (
           <ul
             className="sideArea-looks my-3"
+            id = "ul-looks"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
@@ -80,6 +151,25 @@ export default function Sidebar() {
               );
             })}
             {provided.placeholder}
+            <li style={{
+              top: placeholderProps.clientY,
+              left: placeholderProps.clientX,
+              height: placeholderProps.clientHeight,
+              background: "#e53935",
+              width: placeholderProps.clientWidth,
+              'borderRadius' : '5px',
+              margin :'0 0 26px 0'
+            }}
+            className = "bg-gray-300 my-2 dnd-copy"
+            id="li-looks"
+            order = {placeholderProps.initialIndex}
+            />
+            {
+              console.log(placeholderProps.initialIndex)
+            }
+            {
+              reorderLookElementAtIndex(placeholderProps.initialIndex)
+            }
           </ul>
         )}
       </Droppable>
@@ -90,6 +180,7 @@ export default function Sidebar() {
         {(provided) => (
           <ul
             className="sideArea-control my-3"
+            id = "ul-control"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
@@ -114,6 +205,27 @@ export default function Sidebar() {
               );
             })}
             {provided.placeholder}
+            <li style = {
+              {
+                top: placeholderProps.clientY,
+                left: placeholderProps.clientX,
+                height: placeholderProps.clientHeight,
+                background: "#e53935",
+                width: placeholderProps.clientWidth,
+                'borderRadius': '5px',
+                margin: '0 0 26px 0'
+              }
+            }
+            className = "bg-gray-300 my-2 dnd-copy"
+            id = "li-control"
+            order = {
+              placeholderProps.initialIndex
+            }
+            /> {
+              console.log(placeholderProps.initialIndex)
+            } {
+              reorderControlElementAtIndex(placeholderProps.initialIndex)
+            }
           </ul>
         )}
       </Droppable>
@@ -124,6 +236,7 @@ export default function Sidebar() {
         {(provided) => (
           <ul
             className="sideArea-motion my-3"
+            id = "ul-event"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
@@ -148,6 +261,27 @@ export default function Sidebar() {
               );
             })}
             {provided.placeholder}
+            <li style = {
+              {
+                top: placeholderProps.clientY,
+                left: placeholderProps.clientX,
+                height: placeholderProps.clientHeight,
+                background: "#e53935",
+                width: placeholderProps.clientWidth,
+                'borderRadius': '5px',
+                margin: '0 0 26px 0'
+              }
+            }
+            className = "bg-gray-300 my-2 dnd-copy"
+            id = "li-event"
+            order = {
+              placeholderProps.initialIndex
+            }
+            /> {
+              console.log(placeholderProps.initialIndex)
+            } {
+              reorderEventElementAtIndex(placeholderProps.initialIndex)
+            }
           </ul>
         )}
       </Droppable>

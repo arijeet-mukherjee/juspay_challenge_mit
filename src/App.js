@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Sidebar from "./components/Sidebar";
 import MidArea from "./components/MidArea";
 import PreviewArea from "./components/PreviewArea";
@@ -32,14 +32,49 @@ const useStyles = makeStyles((theme) => ({
 function App({ complist, updateList2 }) {
   const classes = useStyles();
 
+  const queryAttr = "data-rbd-drag-handle-draggable-id";
+  const [placeholderProps, setPlaceholderProps] = useState({});
   //drag start
-  const onDragStart = (e)=>{
-    console.log("hhhhh",e);
+  const onDragStart = (update)=>{
+    console.log("hhhhh",update);
+    //update.mode = 'SNAP';
+    if (!update.destination) {
+      //return;
+    }
+    const draggableId = update.draggableId;
+    const destinationIndex = update.destination ? update.destination.index : 0;
+    const initialIndex = update.source.index;
+    const domQuery = `[${queryAttr}='${draggableId}']`;
+    const draggedDOM = document.querySelector(domQuery);
+
+    if (!draggedDOM) {
+      return;
+    }
+    const { clientHeight, clientWidth } = draggedDOM;
+    	const clientY = parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) * 10 + [...draggedDOM.parentNode.children] 
+			.slice(0, destinationIndex)
+			.reduce((total, curr) => {
+				const style = curr.currentStyle || window.getComputedStyle(curr);
+				const marginBottom = parseFloat(style.marginBottom);
+				return total + curr.clientHeight + marginBottom;
+			}, 0);
     
+      setPlaceholderProps({
+        clientHeight,
+        clientWidth,
+        clientY,
+        clientX: parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingLeft),
+        initialIndex
+      });
   }
+
+
   // Update Lists of Mid Area
   const onDragEnd = (result) => {
-    console.log("found finally")
+    console.log("found finally");
+    setPlaceholderProps({});
+    // let parentNode = document.getElementById('li-motion')
+    // parentNode ? parentNode.style.display='none' : console.log('no elem');
     if (result.destination === null){
       return;
     }
@@ -90,9 +125,9 @@ function App({ complist, updateList2 }) {
         </AppBar>
       </div>
       <div className="h-screen overflow-hidden flex flex-row pt-6">
-        <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+        <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragStart} onDragStart={onDragStart}>
           <div className="flex-1 h-screen overflow-hidden flex flex-row bg-white border-t border-r border-gray-200 rounded-tr-xl mr-2">
-            <Sidebar />
+            < Sidebar placeholderProps = {placeholderProps} / >
 
             <MidArea />
           </div>
